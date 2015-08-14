@@ -8,12 +8,18 @@ Complete the following challenge in as little time as possible and you might be 
 
 ## Instructions
 
-* Fork this repo.
-* Add a plain text file with your contact information and make that your first commit. Include full name, email, and skype user name. Optional: Linked-in link, Twitter handle, link to personal website.
-* Create a **Fizz Buzz** app using [Clojure](http://clojure.org/getting_started)
-* Set up an **HTTP** server which we can easily start, on port 8080, using the tools of your choice.
-* Have it so that when we load up `localhost:8080` on our browser we see the result of your **Fizz Buzz** Clojure app, using **AJAX**.
-* Once all of the above is ready, create a pull request to this repo with only a number as the comment; the number representing on a scale from 1 to 10, honestly, how hard you found this challenge. (1 being "super easy" and 10 being "hardest challenge ever")
+This application should be deployed in Heroku by Friday 4 pm CR time.
+
+The Bitcoin market program will consist of following main components:
+
+* A function that retrieves the current Bitcoin price from a market [it could any market, BitStamp could be one, just pick one].
+* A scheduler that polls the preceding function at a predefined interval.
+* A display function responsible for updating the screen with the Bitcoin price of that market.
+* A display function responsible for updating the screen with the rolling average of the past five Bitcoin prices.
+
+From a functional point of view, is that simple.
+
+The challenge come from the following restriction: Javascript callback functions are forbidden. Instead, you will have to use the Reactive Extensions for JavaScript https://github.com/Reactive-Extensions/RxJS for managing any kind of event.
 
 ## What we will evaluate
 
