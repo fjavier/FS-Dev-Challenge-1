@@ -13,7 +13,7 @@ This application should be deployed in Heroku by the third day after you start t
 To start the challenge:
 
 * Fork this repository to your github account.
-* Create a branch with your name using the naming convention: firstname-lastname.
+* Create a branch with your name using the naming convention: `firstname-lastname`
 * Add a file `contact.txt` with your full name and contact email.
 * Commit the file with the commit message **"Challenge Started"**.
 
