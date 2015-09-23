@@ -12,17 +12,17 @@ This application should be deployed in Heroku by the third day after you start t
 
 To start the challenge:
 
-* Fork this repository to your github account
-* Create a branch with your name using the naming convention: firstname-lastname
-* Add a file `contact.txt` with your full name and contact email
-* Commit the file with the commit message "Challenge Started"
+* Fork this repository to your github account.
+* Create a branch with your name using the naming convention: firstname-lastname.
+* Add a file `contact.txt` with your full name and contact email.
+* Commit the file with the commit message "Challenge Started".
 
 To complete the challenge:
 
-* Complete the challenge in 72 hours (3 days) or less, do as many commits as necessary
-* Once done, edit your `contact.txt` file by adding a line with the time and date when you completed the challenge
-* Commit the change with the commit message "Challenge Complete"
-* Create a pull request on Github from your challenge branch to this repository
+* Complete the challenge in 72 hours (3 days) or less, do as many commits as necessary.
+* Once done, edit your `contact.txt` file by adding a line with the time and date when you completed the challenge.
+* Commit the change with the commit message "Challenge Complete".
+* Create a pull request on Github from your challenge branch to this repository.
 
 ## The Challenge
 
@@ -39,12 +39,12 @@ The challenge comes from the following restriction: Javascript callback function
 
 ## * IMPORTANT CONSIDERATIONS *
 
-* The clock begins ticking as soon as you commit the "Challenge Started" message
-* Your challenge submission will be considered the commits between the "Challenge Started" and "Challenge Complete" commits. **Any other commit outside of that range will be ignored**
-* If the time between the "Challenge Started" and "Challenge Complete" commits exceeds the 72 hour time limit, you will be automatically disqualified from consideration for the job you're applying to
+* The clock begins ticking as soon as you commit the "Challenge Started" message.
+* Your challenge submission will be considered the commits between the "Challenge Started" and "Challenge Complete" commits. **Any other commit outside of that range will be ignored**.
+* If the time between the "Challenge Started" and "Challenge Complete" commits exceeds the 72 hour time limit, you will be automatically disqualified from consideration for the job you're applying to.
 
 ## What we will evaluate
 
-* How easy you make it for us to start up your app and HTTP server
-* Good coding practices
-* Your commit log
+* How easy you make it for us to start up your app and HTTP server.
+* Good coding practices.
+* Your commit log.
