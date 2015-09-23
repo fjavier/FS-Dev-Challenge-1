@@ -40,7 +40,7 @@ The challenge comes from the following restriction: Javascript callback function
 ## * IMPORTANT CONSIDERATIONS *
 
 * The clock begins ticking as soon as you commit the **"Challenge Started"** message.
-* Your challenge submission will be considered the commits between the "Challenge Started" and **"Challenge Complete"** commits. **Any other commit outside of that range will be ignored**.
+* Your challenge submission will be considered the commits between the **"Challenge Started"** and **"Challenge Complete"** commits. **Any other commit outside of that range will be ignored**.
 * If the time between the **"Challenge Started"** and **"Challenge Complete"** commits exceeds the 72 hour time limit, you will be automatically disqualified from consideration for the job you're applying to.
 
 ## What we will evaluate
