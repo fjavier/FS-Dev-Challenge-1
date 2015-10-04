@@ -1,7 +1,10 @@
-<h1>StaticPages#welcome</h1>
+<h4>Current Price: <span id="current_price"></span></h4>
 <p>Find me in app/views/static_pages/welcome.html.erb</p>
 
 <script type="text/javascript">
+	//store the BPI Object
+	var bpiList = [];
+	var currentPriceEl = document.getElementById("current_price");
 
 	//Stream Observable, get from the url(API coindesk)
 	var requestStream = Rx.Observable.just("http://api.coindesk.com/v1/bpi/currentprice.json");	
@@ -24,7 +27,12 @@
 	function actionResponse(){
 		//Subscription for responseStream, I wanna watch the objectBpi(Bitcoin price index) and do some stuff Here.
 		responseStream.subscribe(function(objectBpi){
-			console.log(objectBpi);
+			var price = objectBpi.bpi.USD.rate;
+			//store the attr rate			
+			bpiList.push(price);
+			//Show in View
+			currentPriceEl.textContent = price + "$";
+						
 		});
 	}
 
