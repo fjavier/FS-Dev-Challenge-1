@@ -1,2 +1,33 @@
 <h1>StaticPages#welcome</h1>
 <p>Find me in app/views/static_pages/welcome.html.erb</p>
+
+<script type="text/javascript">
+
+	//Stream Observable, get from the url(API coindesk)
+	var requestStream = Rx.Observable.just("http://api.coindesk.com/v1/bpi/currentprice.json");	
+
+	//Stream Observable, making plain objecto get from the promise of Response
+	var responseStream = requestStream.flatMap(function(requestUrl){
+		return Rx.Observable.fromPromise($.getJSON(requestUrl));
+	});
+
+	//this stream will be execute each minute, starting when the page is loaded
+	var streamByMinute = Rx.Observable.interval(60000).startWith("startup");
+
+	//subscription
+	streamByMinute.subscribe(function(interval){
+		console.log("interval"+interval);
+		actionResponse();
+	});
+
+	//Actions when getting the response
+	function actionResponse(){
+		//Subscription for responseStream, I wanna watch the objectBpi(Bitcoin price index) and do some stuff Here.
+		responseStream.subscribe(function(objectBpi){
+			console.log(objectBpi);
+		});
+	}
+
+
+
+</script>
