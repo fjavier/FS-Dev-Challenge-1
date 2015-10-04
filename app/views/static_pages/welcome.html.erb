@@ -1,15 +1,17 @@
 <h4>Current Price: <span id="current_price"></span></h4>
+<h4>Rolling Average: <span id="rolling_average"></span> </h4>
 <p>Find me in app/views/static_pages/welcome.html.erb</p>
 
 <script type="text/javascript">
 	//store the BPI Object
 	var bpiList = [];
 	var currentPriceEl = document.getElementById("current_price");
+	var rollingAverageEl = document.getElementById("rolling_average");
 
 	//Stream Observable, get from the url(API coindesk)
 	var requestStream = Rx.Observable.just("http://api.coindesk.com/v1/bpi/currentprice.json");	
 
-	//Stream Observable, making plain objecto get from the promise of Response
+	//Stream Observable, making plain object from the promise of Response
 	var responseStream = requestStream.flatMap(function(requestUrl){
 		return Rx.Observable.fromPromise($.getJSON(requestUrl));
 	});
@@ -17,9 +19,8 @@
 	//this stream will be execute each minute, starting when the page is loaded
 	var streamByMinute = Rx.Observable.interval(60000).startWith("startup");
 
-	//subscription
-	streamByMinute.subscribe(function(interval){
-		console.log("interval"+interval);
+	//subscription 
+	streamByMinute.subscribe(function(interval){;
 		actionResponse();
 	});
 
@@ -31,9 +32,30 @@
 			//store the attr rate			
 			bpiList.push(price);
 			//Show in View
-			currentPriceEl.textContent = price + "$";
-						
+			currentPriceEl.textContent = price + "$";						
 		});
+	}
+
+
+	function calculatingRollingAverage(){
+		var itemsPrice = Rx.Observable.fromArray(bpiList);
+		//Getting the prices from the observable list and store of Five on five.
+		var bufferItems = itemsPrice.bufferWithCount(5,1);		
+
+		//Filter, returning when the array have a length of Five Elements
+		//and take the last element(Array containing the last 5 Elements)
+		//Parse each elements and Parse to Float
+		//at the end Calculate Average
+		bufferItems.filter(function(x, idx, obs){
+			return x.length == 5;
+		}).takeLast(1)
+		.map(function(itemsPrice){
+			return parseFloat(itemsPrice);
+		}).average();	
+
+		bufferItems.subscribe(function(rollingAv){
+			rollingAverageEl.textContent = rollingAv + "$";
+		})
 	}
 
 </script>
