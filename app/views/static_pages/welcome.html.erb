@@ -25,11 +25,13 @@
 		<div class="panel-body">
 			<h2 class="page-header" style="margin:0px 0 20px; font-style: italic;">Welcome to Info-BCoin</h2>
 
-			<table class="table" style="width: 60%; margin-left: auto; margin-right: auto;">				
+			<table class="table table-striped table-bordered" style="width: 60%; margin-left: auto; margin-right: auto;">				
 				<thead>
 					<tr>
-						<th>Current Price</th>
-						<th>Historic price </th>
+						<th>Current Price <span style="color:rgb(205, 134, 134);">
+							(<span>Updating in: </span>)
+						</span> </th>
+						<th align="center">History data </th>
 					</tr>
 				</thead>
 				<tbody>
@@ -40,16 +42,31 @@
 							</h3>
 							
 						</td>
-						<td>something</td>
+						<td id="oneMinAgo" align="center">Waiting..</td>
+						
+					</tr>
+					<tr>
+						<td id="twoMinAgo" align="center">Waiting..</td>
+					</tr>
+					<tr>
+						<td id="threeMinAgo" align="center">Waiting..</td>
+					</tr>
+					<tr>
+						<td id="fourMinAgo" align="center">Waiting..</td>
+					</tr>
+					<tr>
+						<td id="fiveMinAgo" align="center">Waiting..</td>
+					</tr>
+					<tr>
+						<td align="right"><h4>Rolling Average:</h4></td>
+						<td align="center"><span id="rolling_average">Please Wait. </span></td>
 					</tr>
 				</tbody>
 			</table>
 			
 			
 		</div>
-  		<div class="panel-footer">
-  			<h4>Rolling Average: <span id="rolling_average"></span> </h4>	
-  		</div>
+  		
 	</div>
 </div>
 
@@ -59,6 +76,11 @@
 	var currentPriceEl = document.getElementById("current_price");
 	var rollingAverageEl = document.getElementById("rolling_average");
 	
+	var oneMinAgoEl = document.getElementById("oneMinAgo");
+	var twoMinAgoEl = document.getElementById("twoMinAgo");
+	var threeMinAgoEl = document.getElementById("threeMinAgo");
+	var fourMinAgoEl = document.getElementById("fourMinAgo");
+	var fiveMinAgoEl = document.getElementById("fiveMinAgo");
 
 	//Stream Observable, get from the url(API coindesk)
 	var requestStream = Rx.Observable.just("http://api.coindesk.com/v1/bpi/currentprice.json");	
@@ -72,7 +94,7 @@
 	var streamByMinute = Rx.Observable.interval(60000).startWith("startup");
 
 	//subscription 
-	streamByMinute.subscribe(function(interval){;
+	streamByMinute.subscribe(function(interval){
 		actionResponse();
 	});
 
@@ -93,11 +115,9 @@
 			var mappedList = getStreamMappedToFloat(streamLastFiveValue);
 			
 			//Validate if the length of array is greater than 5 then
+			updateHistoryPriceList(streamLastFiveValue);
 			if(bpiList.length >= 5){
 				calculateRollingAverage(mappedList);
-
-			}else{
-
 			}
 		});
 
@@ -117,6 +137,41 @@
 		});		
 		//don't need the subscription anymore
 		subscriptionAverage.dispose();
+	}
+
+	function updateHistoryPriceList(streamListValue){
+		stream = streamListValue.select(function(value, idx, obs){
+			return {index: idx, valor: value};
+		}).subscribe(function(value){
+			udpateDataTableHistory(value.index, value.valor);
+			console.log(value);
+		});
+
+		stream.dispose();
+	}
+
+	function udpateDataTableHistory(idx, value){
+		rateHistoricText = value + "$";
+		switch(idx){
+			case 0:
+				oneMinAgoEl.textContent = rateHistoricText;
+				break;
+			case 1:
+				twoMinAgoEl.textContent = rateHistoricText;
+				break;
+			case 2:
+				threeMinAgoEl.textContent = rateHistoricText;
+				break;
+			case 3:
+				fourMinAgoEl.textContent = rateHistoricText;
+				break;
+			case 4:
+				fiveMinAgoEl.textContent = rateHistoricText;
+				break;					
+			default:
+				console.log("default");
+				break;
+		}
 	}
 
 	function updateContent(element, text){
