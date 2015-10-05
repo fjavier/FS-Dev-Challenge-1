@@ -1,12 +1,17 @@
+<h1>Welcome to InfoCoin</h1>
+
 <h4>Current Price: <span id="current_price"></span></h4>
-<h4>Rolling Average: <span id="rolling_average"></span> </h4>
-<p>Find me in app/views/static_pages/welcome.html.erb</p>
+<h4>Rolling Average: <span id="rolling_average"></span> </h4>	
+
+
+
 
 <script type="text/javascript">
 	//store the BPI Object
 	var bpiList = [];
 	var currentPriceEl = document.getElementById("current_price");
 	var rollingAverageEl = document.getElementById("rolling_average");
+	
 
 	//Stream Observable, get from the url(API coindesk)
 	var requestStream = Rx.Observable.just("http://api.coindesk.com/v1/bpi/currentprice.json");	
@@ -32,7 +37,13 @@
 			//store the attr rate			
 			bpiList.push(price);
 			//Show in View
-			currentPriceEl.textContent = price + "$";						
+			currentPriceEl.textContent = price + "$";
+			//When the list have five Prices, then we can calculate the Rolling average.
+			if(bpiList.length >= 5){
+				calculatingRollingAverage();
+			}else{				
+				rollingAverageEl.textContent = "Remaining "+ (5- bpiList.length) +"ElementsTo calculate the Rolling average.";
+			}						
 		});
 	}
 
@@ -50,12 +61,17 @@
 			return x.length == 5;
 		}).takeLast(1)
 		.map(function(itemsPrice){
+			console.log(itemsPrice);
 			return parseFloat(itemsPrice);
 		}).average();	
 
 		bufferItems.subscribe(function(rollingAv){
-			rollingAverageEl.textContent = rollingAv + "$";
+			updateContent(rollingAverageEl, rollingAv + "$")			
 		})
+	}
+
+	function updateContent(element, text){
+		element.textContent = text;
 	}
 
 </script>
