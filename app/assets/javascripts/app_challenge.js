@@ -13,7 +13,7 @@ $(document).ready(function(){
 	var timeLeftEl = document.getElementById("timeLeft"); 
 
 	//Stream Observable, get from the url(API coindesk)
-	var requestStream = Rx.Observable.just("http://api.coindesk.com/v1/bpi/currentprice.json");	
+	var requestStream = Rx.Observable.just("https://api.coindesk.com/v1/bpi/currentprice.json");	
 
 	//Stream Observable, making plain object from the promise of Response
 	var responseStream = requestStream.flatMap(function(requestUrl){
