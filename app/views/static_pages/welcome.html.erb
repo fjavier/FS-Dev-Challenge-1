@@ -2,7 +2,7 @@
 	<div class="container">
 		<div class="navbar-header">
 			<a href="#"  class="navbar-brand">
-				Info-Bitcoin
+				Info-BCoin
 			</a>
 		</div>
 		<div id="navbar" class="collapse navbar-collapse">
@@ -20,13 +20,44 @@
 </nav>
 <!-- Content -->
 
-<div class="container-fluid" role="main">
-	<h1>Welcome to InfoCoin</h1>			
+<div class="container" style="margin: 5%" role="main">
+	<div class="panel panel-default">	 	
+		<div class="panel-body">
+			<h2 class="page-header" style="margin:0px 0 20px; font-style: italic;">Welcome to Info-BCoin</h2>
+
+			<table class="table" style="width: 60%; margin-left: auto; margin-right: auto;">				
+				<thead>
+					<tr>
+						<th>Current Price</th>
+						<th>Historic price </th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td rowspan="5" align="center">
+							<h3>
+								<span style="color: green;" id="current_price"></span>
+							</h3>
+							
+						</td>
+						<td>something</td>
+					</tr>
+				</tbody>
+			</table>
+			
+			
+		</div>
+  		<div class="panel-footer">
+  			<h4>Rolling Average: <span id="rolling_average"></span> </h4>	
+  		</div>
+	</div>
+				
+	
+	
 </div>
 
 
-<h4>Current Price: <span id="current_price"></span></h4>
-<h4>Rolling Average: <span id="rolling_average"></span> </h4>	
+
 
 
 <script type="text/javascript">
@@ -63,7 +94,7 @@
 			updateContent(currentPriceEl, price + "$");			
 			//When the list have five Prices, then we can calculate the Rolling average.
 			if(bpiList.length >= 5){
-				calculatingRollingAverage();
+				calculateRollingAverage();
 			}else{				
 				rollingAverageEl.textContent = "Remaining "+ (5- bpiList.length) +"ElementsTo calculate the Rolling average.";
 			}						
@@ -71,7 +102,7 @@
 	}
 
 
-	function calculatingRollingAverage(){
+	function calculateRollingAverage(){
 		var itemsPrice = Rx.Observable.fromArray(bpiList);
 		//Getting the prices from the observable list and store of Five on five.
 		//Filter, returning when the array have a length of Five Elements
