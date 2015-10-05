@@ -41,7 +41,7 @@ $(document).ready(function(){
 			
 			//Update Text with the Current Value
 			updateContent(currentPriceEl, price + "$");			
-			console.log(bpiList);
+			
 			//Stream from array with the last Five Value
 			var streamLastFiveValue = Rx.Observable.fromArray(bpiList);
 			var mappedList = getStreamMappedToFloat(streamLastFiveValue);
@@ -78,7 +78,7 @@ $(document).ready(function(){
 			return {index: idx, valor: value};
 		}).subscribe(function(value){
 			udpateDataTableHistory(value.index, value.valor);
-			console.log(value);
+			
 		});
 
 		stream.dispose();
