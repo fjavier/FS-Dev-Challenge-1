@@ -17,16 +17,16 @@
 </nav>
 <!-- Content -->
 
-<div class="container" style="margin: 5%" role="main">
+<div class="container" id="cont-dash" role="main">
 	<div class="panel panel-default">	 	
 		<div class="panel-body">
-			<h2 class="page-header" style="margin:0px 0 20px; font-style: italic;">Welcome to Info-BCoin</h2>
+			<h2 class="page-header">Welcome to Info-BCoin</h2>
 
-			<table class="table table-striped table-bordered" style="width: 60%; margin-left: auto; margin-right: auto;">				
+			<table class="table table-striped table-bordered" id="dashboard" >				
 				<thead>
 					<tr>
-						<th>Current Price <span style="color:rgb(205, 134, 134);">
-							(<span id="timeLeft">Updating in: </span>)
+						<th>Current Price <span id="updateTimeLeft">
+							(<span id="timeLeft"></span>)
 						</span> </th>
 						<th align="center">History data </th>
 					</tr>
@@ -35,7 +35,7 @@
 					<tr>
 						<td rowspan="5" align="center">
 							<h3>
-								<span style="color: green;" id="current_price"></span>
+								<span id="current_price"></span>
 							</h3>
 							
 						</td>
@@ -62,7 +62,11 @@
 			</table>
 			
 			
-		</div>
-  		
+		</div>  		
+	</div>
+</div>
+<div class="navbar navbar-inverse navbar-fixed-bottom ">
+	<div class="container" id="info">
+		<span> Data Provided by: </span> <a href="http://www.coindesk.com/price/">CoinDesk</a>
 	</div>
 </div>

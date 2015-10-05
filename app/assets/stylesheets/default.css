@@ -1,0 +1,27 @@
+.page-header{
+	margin:0px 0 20px; 
+	font-style: italic;
+}
+
+#cont-dash{
+	margin: 5%;
+}
+
+#dashboard{
+	margin-left: auto; 
+	margin-right: auto;
+	width: 60%; 
+}
+
+#updateTimeLeft{
+	color:rgb(205, 134, 134);
+}
+
+#current_price{
+	color: green;
+}
+
+#info{
+	color: white;
+	margin-top: 10px;
+}
