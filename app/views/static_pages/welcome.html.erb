@@ -37,7 +37,7 @@
 			//store the attr rate			
 			bpiList.push(price);
 			//Show in View
-			currentPriceEl.textContent = price + "$";
+			updateContent(currentPriceEl, price + "$");			
 			//When the list have five Prices, then we can calculate the Rolling average.
 			if(bpiList.length >= 5){
 				calculatingRollingAverage();
