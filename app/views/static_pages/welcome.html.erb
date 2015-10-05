@@ -51,14 +51,7 @@
   			<h4>Rolling Average: <span id="rolling_average"></span> </h4>	
   		</div>
 	</div>
-				
-	
-	
 </div>
-
-
-
-
 
 <script type="text/javascript">
 	//store the BPI Object
@@ -85,44 +78,45 @@
 
 	//Actions when getting the response
 	function actionResponse(){
-		//Subscription for responseStream, I wanna watch the objectBpi(Bitcoin price index) and do some stuff Here.
+		//Subscription for responseStream, update the value in current price.
+		//and calculate rolling_average, and update table of last five values
 		responseStream.subscribe(function(objectBpi){
 			var price = objectBpi.bpi.USD.rate;
 			//store the attr rate			
 			bpiList.push(price);
-			//Show in View
+			
+			//Update Text with the Current Value
 			updateContent(currentPriceEl, price + "$");			
-			//When the list have five Prices, then we can calculate the Rolling average.
+			console.log(bpiList);
+			//Stream from array with the last Five Value
+			var streamLastFiveValue = Rx.Observable.fromArray(bpiList);
+			var mappedList = getStreamMappedToFloat(streamLastFiveValue);
+			
+			//Validate if the length of array is greater than 5 then
 			if(bpiList.length >= 5){
-				calculateRollingAverage();
-			}else{				
-				rollingAverageEl.textContent = "Remaining "+ (5- bpiList.length) +"ElementsTo calculate the Rolling average.";
-			}						
+				calculateRollingAverage(mappedList);
+
+			}else{
+
+			}
 		});
+
 	}
 
+	function getStreamMappedToFloat(streamListValue){
+		return streamListValue.map(function(value){
+			return parseFloat(value);
+		});		
+	}
 
-	function calculateRollingAverage(){
-		var itemsPrice = Rx.Observable.fromArray(bpiList);
-		//Getting the prices from the observable list and store of Five on five.
-		//Filter, returning when the array have a length of Five Elements
-		//and take the last element(Array containing the last 5 Elements)
-		//Parse each elements and Parse to Float
-		//at the end Calculate Average
-		var bufferItems = itemsPrice.bufferWithCount(5,1).
-							filter(function(x, idx, obs){
-								return x.length == 5;
-							}).takeLast(1)
-							.map(function(itemsPrice){
-								console.log("from Map");
-								console.log(itemsPrice);
-								return parseFloat(itemsPrice);
-							}).average();		
-
-		bufferItems.subscribe(function(rollingAv){
-			console.log(rollingAv);
-			updateContent(rollingAverageEl, rollingAv + "$");			
-		});
+	function calculateRollingAverage(streamListValue){
+		subscriptionAverage = streamListValue.average().subscribe(function(value){
+			updateContent(rollingAverageEl, value + "$");
+			//shift the first element, dont need the value anymore.
+			bpiList.shift();			
+		});		
+		//don't need the subscription anymore
+		subscriptionAverage.dispose();
 	}
 
 	function updateContent(element, text){
